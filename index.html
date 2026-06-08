@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday 🌊</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;500;700;800&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --void:    #03060d;
+  --abyss:   #080f1e;
+  --deep:    #0e1e38;
+  --navy:    #183060;
+  --ocean:   #1e5a9c;
+  --electric:#2e8ee0;
+  --spark:   #60c4f8;
+  --mist:    #c0e8ff;
+  --ice:     #eef7ff;
+  --cyan:    #0af0d0;
+  --violet:  #7030c8;
+  --aurora:  #c890ff;
+  --gold:    #f0c060;
+  --gold2:   #c8901a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body {
+  background: var(--abyss);
+  color: var(--mist);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── STAR FIELD ── */
+#starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,100%{opacity:0.2;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.4)}
+}
+
+/* ── AURORA BG ── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.12;
+  animation: drift ease-in-out infinite;
+}
+.aurora-blob:nth-child(1){width:600px;height:600px;background:var(--electric);top:-100px;left:-200px;animation-duration:12s}
+.aurora-blob:nth-child(2){width:500px;height:500px;background:var(--violet);top:30%;right:-150px;animation-duration:15s;animation-delay:3s}
+.aurora-blob:nth-child(3){width:400px;height:400px;background:var(--cyan);bottom:-100px;left:30%;animation-duration:10s;animation-delay:6s}
+@keyframes drift {
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(40px,-30px) scale(1.1)}
+  66%{transform:translate(-20px,40px) scale(0.95)}
+}
+
+/* ── CURSOR ── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s;
+  box-shadow: 0 0 12px var(--cyan), 0 0 24px rgba(10,240,208,0.4);
+  mix-blend-mode: screen;
+}
+.cursor-trail {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(10,240,208,0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: all .12s ease;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.2rem 2rem;
+  background: rgba(3,6,13,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(46,142,224,0.12);
+}
+nav a {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(192,232,255,0.5);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color .3s, text-shadow .3s;
+  position: relative;
+}
+nav a::after {
+  content:'';
+  position:absolute;
+  bottom:-4px;left:0;right:0;
+  height:1px;
+  background: var(--cyan);
+  transform:scaleX(0);
+  transition:transform .3s;
+}
+nav a:hover { color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
+nav a:hover::after { transform: scaleX(1); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: revealUp .8s .3s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.hero-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  color: transparent;
+  background: linear-gradient(135deg, var(--ice) 0%, var(--spark) 40%, var(--cyan) 70%, var(--aurora) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  animation: revealUp .9s .5s cubic-bezier(.16,1,.3,1) forwards;
+  text-shadow: none;
+  filter: drop-shadow(0 0 40px rgba(96,196,248,0.3));
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-style: italic;
+  color: rgba(192,232,255,0.7);
+  margin-top: 1.2rem;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  animation: revealUp .9s .7s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.hero-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 600;
+  color: var(--gold);
+  margin-top: 0.6rem;
+  opacity: 0;
+  animation: revealUp .9s .9s cubic-bezier(.16,1,.3,1) forwards;
+  text-shadow: 0 0 30px rgba(240,192,96,0.4);
+}
+
+.hero-btn {
+  margin-top: 2.5rem;
+  padding: 1rem 2.8rem;
+  background: transparent;
+  border: 1px solid var(--electric);
+  border-radius: 100px;
+  color: var(--spark);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all .35s;
+  opacity: 0;
+  animation: revealUp .9s 1.1s cubic-bezier(.16,1,.3,1) forwards;
+  position: relative;
+  overflow: hidden;
+}
+.hero-btn::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(46,142,224,0.2), rgba(10,240,208,0.15));
+  opacity:0;
+  transition:opacity .35s;
+}
+.hero-btn:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 30px rgba(10,240,208,0.25), inset 0 0 30px rgba(10,240,208,0.05);
+  transform: translateY(-2px);
+}
+.hero-btn:hover::before { opacity: 1; }
+
+.scroll-cue {
+  margin-top: 4rem;
+  opacity: 0;
+  animation: revealUp .9s 1.4s cubic-bezier(.16,1,.3,1) forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.scroll-cue span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(192,232,255,0.3); }
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--electric), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100%{transform:scaleY(1);opacity:1}
+  50%{transform:scaleY(.5);opacity:.3}
+}
+
+@keyframes revealUp {
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ── SECTION SHARED ── */
+section { position: relative; z-index: 1; }
+
+.section-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(10,240,208,0.3);
+  border-radius: 100px;
+  padding: 0.3rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ice);
+}
+.section-heading em {
+  font-style: italic;
+  color: transparent;
+  background: linear-gradient(90deg, var(--spark), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+  max-width: 180px;
+}
+.ornament::before, .ornament::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background: linear-gradient(to right, transparent, rgba(46,142,224,0.4));
+}
+.ornament::after { background: linear-gradient(to left, transparent, rgba(46,142,224,0.4)); }
+.ornament span { color: var(--electric); font-size: 0.7rem; }
+
+/* ── STORY ── */
+#story {
+  padding: 8rem 2rem;
+  background: var(--void);
+}
+.story-inner { max-width: 960px; margin: 3.5rem auto 0; }
+.story-grid { display: grid; gap: 1.5rem; }
+
+.story-card {
+  background: rgba(14,30,56,0.6);
+  border: 1px solid rgba(46,142,224,0.15);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 2rem;
+  align-items: start;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all .7s cubic-bezier(.16,1,.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.story-card::before {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--electric), transparent);
+  opacity:0;
+  transition:opacity .4s;
+}
+.story-card:hover::before { opacity:1; }
+.story-card:hover {
+  border-color: rgba(46,142,224,0.35);
+  background: rgba(14,30,56,0.9);
+  box-shadow: 0 20px 60px rgba(3,6,13,0.6), 0 0 40px rgba(46,142,224,0.06);
+}
+.story-card.visible { opacity:1; transform:translateX(0); }
+
+.story-icon {
+  width:64px;height:64px;
+  background: rgba(46,142,224,0.1);
+  border: 1px solid rgba(46,142,224,0.2);
+  border-radius: 1rem;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;
+  flex-shrink:0;
+}
+.story-card h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-weight:600;
+  color:var(--ice);
+  margin-bottom:.6rem;
+  letter-spacing:.01em;
+}
+.story-card p { font-size:.9rem; line-height:1.85; color:rgba(192,232,255,0.65); font-weight:400; }
+.story-hl {
+  color: var(--spark);
+  background: rgba(96,196,248,0.08);
+  border-radius:3px;
+  padding:0 3px;
+  font-style:italic;
+}
+
+/* ── REASONS ── */
+#reasons {
+  padding: 8rem 2rem;
+  background: linear-gradient(180deg, var(--void) 0%, var(--abyss) 100%);
+}
+.reasons-grid {
+  max-width: 1080px;
+  margin: 3.5rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+.reason-card {
+  border: 1px solid rgba(46,142,224,0.12);
+  border-radius: 1.2rem;
+  padding: 2.2rem 1.8rem;
+  background: rgba(8,15,30,0.8);
+  opacity:0;transform:translateY(24px);
+  transition:all .6s cubic-bezier(.16,1,.3,1);
+  position:relative;overflow:hidden;
+}
+.reason-card::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 0%, rgba(46,142,224,0.08) 0%, transparent 70%);
+  opacity:0;
+  transition:opacity .4s;
+}
+.reason-card:hover::after { opacity:1; }
+.reason-card:hover {
+  border-color:rgba(96,196,248,0.3);
+  transform:translateY(-6px) !important;
+  box-shadow:0 20px 50px rgba(3,6,13,0.7), 0 0 30px rgba(46,142,224,0.08);
+}
+.reason-card.visible{opacity:1;transform:translateY(0)}
+.reason-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:300;
+  color:rgba(46,142,224,0.15);
+  line-height:1;margin-bottom:.4rem;
+  letter-spacing:-.02em;
+}
+.reason-emoji { font-size:1.6rem; margin-bottom:.7rem; }
+.reason-card h4 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:600;
+  color:var(--ice);margin-bottom:.5rem;
+}
+.reason-card p { font-size:.85rem; color:rgba(192,232,255,0.55); line-height:1.7; }
+
+/* ── VIDEO ── */
+#video-section {
+  padding: 8rem 2rem;
+  background: var(--void);
+  text-align:center;
+}
+.video-wrapper {
+  max-width:380px;
+  margin:3rem auto 0;
+  border-radius:1.5rem;
+  overflow:hidden;
+  border:1px solid rgba(46,142,224,0.2);
+  box-shadow:0 0 60px rgba(46,142,224,0.12), 0 40px 80px rgba(3,6,13,0.8);
+  position:relative;
+}
+.video-wrapper::before {
+  content:'';
+  position:absolute;
+  inset:-1px;
+  border-radius:1.5rem;
+  background:linear-gradient(135deg,rgba(46,142,224,0.3),transparent,rgba(10,240,208,0.2));
+  z-index:1;pointer-events:none;
+}
+.video-wrapper video { width:100%;height:auto;display:block; }
+.video-caption {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:rgba(192,232,255,0.45);
+  margin-top:1.8rem;
+  font-size:1.05rem;
+  letter-spacing:.02em;
+}
+
+/* ── QUIZ ── */
+#quiz {
+  padding: 8rem 2rem;
+  background: linear-gradient(180deg, var(--abyss) 0%, var(--void) 100%);
+}
+.quiz-wrap { max-width:700px; margin:3.5rem auto 0; }
+.quiz-box {
+  background:rgba(14,30,56,0.7);
+  border:1px solid rgba(46,142,224,0.18);
+  border-radius:2rem;
+  padding:3rem;
+  box-shadow:0 40px 80px rgba(3,6,13,0.6);
+  backdrop-filter:blur(20px);
+}
+.quiz-progress { display:flex;gap:5px;margin-bottom:2.5rem; }
+.qprog-dot {
+  height:3px;flex:1;border-radius:2px;
+  background:rgba(46,142,224,0.15);
+  transition:background .4s;
+}
+.qprog-dot.done { background: linear-gradient(90deg,var(--electric),var(--cyan)); }
+.quiz-q {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.45rem;font-weight:400;
+  color:var(--ice);margin-bottom:.4rem;line-height:1.45;
+}
+.quiz-hint { font-size:.8rem; color:rgba(96,196,248,0.5); margin-bottom:1.8rem; letter-spacing:.02em; }
+.quiz-options { display:grid;gap:.7rem; }
+.quiz-btn {
+  width:100%;padding:.9rem 1.4rem;
+  background:rgba(30,90,156,0.1);
+  border:1px solid rgba(46,142,224,0.18);
+  border-radius:.9rem;
+  font-family:'Syne',sans-serif;
+  font-size:.88rem;font-weight:500;
+  color:rgba(192,232,255,0.7);
+  text-align:left;cursor:pointer;
+  transition:all .25s;
+}
+.quiz-btn:hover {
+  background:rgba(46,142,224,0.15);
+  border-color:rgba(96,196,248,0.4);
+  color:var(--ice);
+  transform:translateX(5px);
+}
+.quiz-btn.correct {
+  background:rgba(10,240,208,0.1);
+  border-color:var(--cyan);
+  color:var(--cyan);
+}
+.quiz-btn.wrong {
+  background:rgba(200,80,80,0.08);
+  border-color:rgba(200,100,100,0.4);
+  color:rgba(255,160,160,0.8);
+}
+.quiz-feedback {
+  margin-top:1.2rem;padding:1rem 1.2rem;
+  border-radius:.8rem;font-size:.88rem;
+  line-height:1.65;font-style:italic;display:none;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;
+}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:rgba(10,240,208,0.06);color:var(--cyan);border:1px solid rgba(10,240,208,0.15)}
+.quiz-feedback.wrong{background:rgba(200,80,80,0.06);color:rgba(255,160,160,.8);border:1px solid rgba(200,100,100,0.15)}
+.quiz-next {
+  margin-top:1.2rem;padding:.8rem 2.2rem;
+  background:linear-gradient(135deg,var(--ocean),var(--electric));
+  color:white;border:none;border-radius:100px;
+  font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;
+  cursor:pointer;display:none;transition:all .25s;letter-spacing:.05em;
+}
+.quiz-next.show{display:inline-block}
+.quiz-next:hover{transform:scale(1.04);box-shadow:0 8px 30px rgba(46,142,224,0.4)}
+.quiz-result{text-align:center;padding:2rem;display:none}
+.quiz-result.show{display:block}
+.result-score {
+  font-family:'Dancing Script',cursive;
+  font-size:5.5rem;font-weight:700;
+  background:linear-gradient(135deg,var(--spark),var(--cyan));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1;
+}
+.result-msg {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-style:italic;
+  color:rgba(192,232,255,.75);margin-top:1rem;line-height:1.7;
+}
+.result-hearts{font-size:1.8rem;margin:1rem 0;letter-spacing:.5rem}
+.quiz-restart {
+  margin-top:1rem;padding:.7rem 2rem;
+  background:transparent;
+  border:1px solid rgba(46,142,224,0.35);
+  border-radius:100px;
+  color:var(--spark);
+  font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;
+  cursor:pointer;transition:all .25s;letter-spacing:.08em;
+}
+.quiz-restart:hover{background:rgba(46,142,224,0.15);border-color:var(--electric)}
+
+/* ── LETTER ── */
+#letter {
+  padding:8rem 2rem;
+  background:var(--void);
+}
+.letter-frame {
+  max-width:720px;margin:3.5rem auto 0;
+  position:relative;
+}
+.letter-frame::before {
+  content:'';
+  position:absolute;
+  inset:-1px;border-radius:2rem;
+  background:linear-gradient(135deg,rgba(46,142,224,0.3),rgba(10,240,208,0.1),rgba(112,48,200,0.2));
+  z-index:0;
+}
+.letter-inner {
+  position:relative;z-index:1;
+  background:rgba(8,15,30,0.95);
+  border-radius:2rem;
+  padding:4rem;
+  backdrop-filter:blur(20px);
+}
+.letter-to {
+  font-family:'Dancing Script',cursive;
+  font-size:2.5rem;font-weight:600;
+  color:var(--spark);margin-bottom:2rem;
+}
+.letter-body {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.12rem;line-height:2.1;
+  color:rgba(192,232,255,0.75);
+  font-style:italic;
+}
+.letter-body p{margin-bottom:1.4rem}
+.letter-body p:last-child{margin-bottom:0}
+.letter-sign {
+  font-family:'Dancing Script',cursive;
+  font-size:2.2rem;font-weight:600;
+  color:var(--gold);
+  margin-top:2.5rem;text-align:right;
+}
+.letter-deco {
+  text-align:center;font-size:1rem;
+  letter-spacing:1rem;margin-top:1.2rem;
+  color:var(--electric);opacity:.5;
+}
+
+/* ── MOMENTS ── */
+#moments {
+  padding:8rem 2rem;
+  background:linear-gradient(180deg,var(--void),var(--abyss));
+}
+.moments-cloud {
+  display:flex;flex-wrap:wrap;
+  gap:1rem;justify-content:center;
+  max-width:960px;margin:3.5rem auto 0;
+}
+.moment-tag {
+  background:rgba(14,30,56,0.7);
+  border:1px solid rgba(46,142,224,0.18);
+  border-radius:100px;
+  padding:.55rem 1.4rem;
+  font-size:.82rem;
+  color:rgba(192,232,255,0.6);
+  font-family:'Syne',sans-serif;font-weight:500;
+  letter-spacing:.02em;
+  cursor:default;
+  transition:all .3s;
+  animation:floatTag ease-in-out infinite;
+}
+.moment-tag:hover {
+  background:rgba(46,142,224,0.15);
+  border-color:var(--electric);
+  color:var(--ice);
+  transform:scale(1.06) translateY(-4px);
+  box-shadow:0 0 20px rgba(46,142,224,0.2);
+}
+@keyframes floatTag {
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+/* ── FOOTER ── */
+footer {
+  background:var(--void);
+  border-top:1px solid rgba(46,142,224,0.1);
+  text-align:center;
+  padding:4rem 2rem;
+  position:relative;z-index:1;
+}
+.footer-script {
+  font-family:'Dancing Script',cursive;
+  font-size:3.2rem;font-weight:700;
+  background:linear-gradient(135deg,var(--spark),var(--cyan),var(--aurora));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  display:block;margin-bottom:.8rem;
+  filter:drop-shadow(0 0 30px rgba(96,196,248,0.3));
+}
+footer p { font-size:.75rem; color:rgba(192,232,255,0.2); letter-spacing:.1em; text-transform:uppercase; }
+.footer-orbs {
+  display:flex;justify-content:center;gap:.8rem;margin-top:1.2rem;
+}
+.footer-orbs span {
+  width:8px;height:8px;border-radius:50%;
+  background:var(--electric);
+  animation:heartBeat 1.2s ease-in-out infinite;
+  box-shadow:0 0 10px var(--electric);
+}
+.footer-orbs span:nth-child(2){animation-delay:.2s;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.footer-orbs span:nth-child(3){animation-delay:.4s;background:var(--aurora);box-shadow:0 0 10px var(--aurora)}
+@keyframes heartBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+
+/* ── CANVAS ── */
+#fw-canvas {
+  position:fixed;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;z-index:9999;
+}
+
+/* ── SPARKLE ── */
+.sparkle {
+  position:fixed;pointer-events:none;z-index:9997;
+  font-size:.9rem;
+  animation:spkl .8s forwards;
+  transform:translate(-50%,-50%);
+}
+@keyframes spkl {
+  0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}
+  50%{opacity:1;transform:translate(-50%,-65%) scale(1.1)}
+  100%{opacity:0;transform:translate(-50%,-80%) scale(.7)}
+}
+
+/* ── CONFETTI ── */
+.conf {
+  position:fixed;pointer-events:none;z-index:9998;
+  top:-10px;border-radius:2px;opacity:0;
+  animation:confFall linear forwards;
+}
+@keyframes confFall {
+  0%{opacity:1;transform:translateY(0) rotate(0)}
+  100%{opacity:0;transform:translateY(110vh) rotate(720deg)}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  nav{gap:1rem;font-size:.6rem;flex-wrap:wrap}
+  .letter-inner{padding:2.5rem 1.5rem}
+  .story-card{grid-template-columns:1fr}
+  .quiz-box{padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="fw-canvas"></canvas>
+<div id="starfield"></div>
+<div class="aurora-bg">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<nav>
+  <a href="#story">Our Story</a>
+  <a href="#reasons">Why You</a>
+  <a href="#video-section">Our Film</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#letter">Letter</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">June 9, 2026 · A Very Special Day</p>
+  <h1 class="hero-title">Happy Birthday,</h1>
+  <p class="hero-sub">To </p>
+  <p class="hero-name">My favourite person 💫</p>
+  <button class="hero-btn" onclick="launchCelebration()">💕 Click baby 💕</button>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div style="text-align:center">
+    <span class="section-badge">How it started</span>
+    <h2 class="section-heading">Our <em>Beautiful</em> Beginning</h2>
+    <div class="ornament"><span>✦</span></div>
+  </div>
+  <div class="story-inner">
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="story-icon">📍</div>
+        <div>
+          <h3>The Place That Changed Everything</h3>
+          <p>Somewhere <span class="story-hl">between Queen Esther Hall and the Cafeteria Gazebo</span> — a spot so ordinary, yet it holds the most extraordinary memory. That corridor, that walkway, that exact slice of campus air is where it all began. I didn't know then that a single moment in that space would rewrite everything.</p>
+        </div>
+      </div>
+      <div class="story-card">
+        <div class="story-icon">📸</div>
+        <div>
+          <h3>The Snapchat Moment</h3>
+          <p>Baby I could remember you came for a friend. Just to <span class="story-hl">get my Snap</span>. That was the whole mission. A small errand, a casual ask — and yet, look at us now. The universe has a beautiful way of disguising destiny as a simple favour. He was delivering a message and unknowingly delivering himself into my life forever.</p>
+        </div>
+      </div>
+      <div class="story-card">
+        <div class="story-icon">🤝</div>
+        <div>
+          <h3>The Best Friend I Never Planned For</h3>
+          <p>You became <span class="story-hl">the best friend I never had</span>. Not the one I searched for, not the one I expected — but the one who showed up and fit perfectly into all the spaces I didn't know were empty. That's the rarest kind of person. And somehow — you're mine. Baby you never left my side despite all my naiveness. I knew you were just the one mehn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section id="reasons">
+  <div style="text-align:center">
+    <span class="section-badge">From my heart</span>
+    <h2 class="section-heading">Reasons I <em>adore</em> you</h2>
+    <div class="ornament"><span>✦</span></div>
+  </div>
+  <div class="reasons-grid">
+    <div class="reason-card"><div class="reason-num">01</div><div class="reason-emoji">🌙</div><h4>You just get it</h4><p>Before I finish a sentence, you already understand. That kind of connection isn't common — it's rare and precious and it's ours.</p></div>
+    <div class="reason-card"><div class="reason-num">02</div><div class="reason-emoji">😂</div><h4>You make everything funnier</h4><p>Even the dull days have a soundtrack with you. Your laugh, your timing, your ridiculous humour — it's my favourite medicine.</p></div>
+    <div class="reason-card"><div class="reason-num">03</div><div class="reason-emoji">🛡️</div><h4>You show up</h4><p>Not just in the good moments. You're there when things get quiet and heavy too. That loyalty is something I don't take lightly.</p></div>
+    <div class="reason-card"><div class="reason-num">04</div><div class="reason-emoji">✨</div><h4>You see me clearly</h4><p>Not a filtered version, not a performance. You see the actual me and somehow choose to stay. That means more than any word I own.</p></div>
+    <div class="reason-card"><div class="reason-num">05</div><div class="reason-emoji">🌸</div><h4>You started as a stranger</h4><p>A stranger on a mission to get a Snap. Now you're irreplaceable. That glow-up of a relationship will never not be the most beautiful story.</p></div>
+    <div class="reason-card"><div class="reason-num">06</div><div class="reason-emoji">💛</div><h4>You are genuinely kind</h4><p>Not performative, not calculated — effortlessly, quietly kind. The world is softer because you're in it. And I'm luckier because you're in mine.</p></div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video-section">
+  <div style="text-align:center">
+    <span class="section-badge">A moment saved for you</span>
+    <h2 class="section-heading">Our <em>Little</em> Film</h2>
+    <div class="ornament"><span>✦</span></div>
+  </div>
+  <div class="video-wrapper">
+    <video controls playsinline preload="metadata">
+      <source src="chai.MOV" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <p class="video-caption">Every second with you deserves to be remembered ✦</p>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div style="text-align:center">
+    <span class="section-badge">Let's find out</span>
+    <h2 class="section-heading">How well do you <em>know us?</em></h2>
+    <div class="ornament"><span>✦</span></div>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-box">
+      <div class="quiz-progress" id="quizProgress"></div>
+      <div id="quizContent"></div>
+      <div class="quiz-result" id="quizResult">
+        <div class="result-score" id="resultScore"></div>
+        <div class="result-hearts" id="resultHearts"></div>
+        <p class="result-msg" id="resultMsg"></p>
+        <br/>
+        <button class="quiz-restart" onclick="restartQuiz()">Play Again ↺</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section id="letter">
+  <div style="text-align:center">
+    <span class="section-badge">From me, to you</span>
+    <h2 class="section-heading">A Love <em>Letter</em></h2>
+    <div class="ornament"><span>✦</span></div>
+  </div>
+  <div class="letter-frame">
+    <div class="letter-inner">
+      <p class="letter-to">My dearest love,</p>
+      <div class="letter-body">
+        <p>I want to tell you something I've thought about more times than I can count. I think about that walkway — the one between Queen Esther Hall and the Gazebo. On any other day, it would have just been a corridor. But it became the place where you walked into my life, even if you didn't mean to stay.</p>
+        <p>You came for a Snap. And even after we never thought we'd be more I met you outside beside the cafeteria with that black boy. You stayed as a best friend. And somewhere between all those conversations, the late nights, the laughter, and the quiet moments in between — you became the person I didn't know I was waiting for.</p>
+        <p>What I love most is that it wasn't dramatic. There was no grand moment of realisation, no fireworks (well, except maybe today 🎉). It was just you, showing up, consistently and warmly, until one day I looked up and realised you were the safest place I know.</p>
+        <p>So today, on your birthday, I want you to know this: you are deeply, genuinely loved. Not because you're perfect — but because you are so extraordinarily, beautifully you. And that version of you is my absolute favourite person in the world.</p>
+        <p>Happy birthday to my best friend, my partner, my favourite "errand" the universe ever ran. Here's to you — and to every year ahead that I get to spend knowing you.
+          Used your favourite colour btw 🌸</p>
+      </div>
+      <p class="letter-sign">With all my heart,<br/>Your girl Mary ❤️</p>
+      <p class="letter-deco">✦ ✦ ✦</p>
+    </div>
+  </div>
+</section>
+
+<!-- MOMENTS -->
+<section id="moments">
+  <div style="text-align:center">
+    <span class="section-badge">A collection</span>
+    <h2 class="section-heading">Little <em>Memories</em> We've Made</h2>
+    <div class="ornament"><span>✦</span></div>
+  </div>
+  <div class="moments-cloud" id="momentsCloud"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-script">Happy Birthday!</span>
+  <p>Crafted with love · June 9th, 2026</p>
+  <div class="footer-orbs">
+    <span></span><span></span><span></span>
+  </div>
+  <p style="margin-top:1.5rem;opacity:.2;font-size:.7rem">Made especially for you · with every bit of my heart</p>
+</footer>
+
+<script>
+// ── STARS ────────────────────────────────────────────────
+const sf = document.getElementById('starfield');
+for(let i=0;i<120;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const size = .5+Math.random()*2.5;
+  s.style.cssText=`width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s;opacity:${.1+Math.random()*.4}`;
+  sf.appendChild(s);
+}
+
+// ── CURSOR ───────────────────────────────────────────────
+const cur=document.getElementById('cursor');
+const trail=document.getElementById('cursorTrail');
+const spkEmoji=['✦','·','*','◦','°'];
+let spkT=0;
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  setTimeout(()=>{trail.style.left=e.clientX+'px';trail.style.top=e.clientY+'px'},60);
+  spkT++;
+  if(spkT%14===0){
+    const sp=document.createElement('div');
+    sp.className='sparkle';
+    sp.textContent=spkEmoji[Math.floor(Math.random()*spkEmoji.length)];
+    sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';
+    sp.style.color=`hsl(${190+Math.random()*60},80%,70%)`;
+    document.body.appendChild(sp);
+    setTimeout(()=>sp.remove(),800);
+  }
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*90);
+  });
+},{threshold:.1});
+document.querySelectorAll('.story-card,.reason-card').forEach(el=>obs.observe(el));
+
+// ── MOMENTS ──────────────────────────────────────────────
+const moms=[
+  'Between Queen Esther & the Gazebo 📍','The Snap that started it all 📸',
+  'Becoming best friends 🤝','Late night conversations 🌙',
+  'Making each other laugh 😂','Unexpected friendship 🌸',
+  'Growing together 🌱','Every shared silence 🤍',
+  'The friend I never had 💛','Campus walks ☀️',
+  'All the inside jokes 😅','Being completely seen 👁️',
+  'Staying when it matters 🛡️','Our first hello 🌷',
+];
+const cloud=document.getElementById('momentsCloud');
+moms.forEach((m,i)=>{
+  const t=document.createElement('div');
+  t.className='moment-tag';t.textContent=m;
+  t.style.animationDuration=(3+(i%4)*.6)+'s';
+  t.style.animationDelay=(i*.25)+'s';
+  cloud.appendChild(t);
+});
+
+// ── QUIZ ─────────────────────────────────────────────────
+const questions=[
+  {q:"Where exactly did we first meet?",hint:"Think about a very specific spot on campus...",options:["A) In the library during exam season","B) Between Queen Esther Hall and the Cafeteria Gazebo","C) At a friend's birthday party","D) In the school cafeteria itself"],correct:1,fb:{r:"Yes! That little walkway between Queen Esther Hall and the Cafeteria Gazebo — the most ordinary place that somehow became the most special one. 💕",w:"It was between Queen Esther Hall and the Cafeteria Gazebo — a place that will forever be special to us. 🌸"}},
+  {q:"Why did he originally approach me?",hint:"It started as a simple favour for someone else...",options:["A) He wanted to borrow my notes","B) We were assigned as project partners","C) He was getting my Snapchat for his friend","D) He needed directions to a building"],correct:2,fb:{r:"Exactly! He came on a mission for his friend — to get my Snap. The smallest errand turned into the biggest blessing. ✨",w:"He came to get my Snapchat for a friend — and ended up getting something neither of us expected: a forever person. 💛"}},
+  {q:"What did he become to me beyond a boyfriend?",hint:"Think about the most meaningful kind of friendship...",options:["A) My study partner and tutor","B) The best friend I never had","C) My gym accountability buddy","D) My roommate's best friend"],correct:1,fb:{r:"The best friend I never had — that's exactly it. The kind of connection that doesn't happen often. 🌸",w:"He became the best friend I never had. The rarest kind — a friend who found me when I wasn't even looking. 💕"}},
+  {q:"How best to describe how our relationship started?",hint:"It was never planned, never expected...",options:["A) Love at first sight at a campus event","B) A slow-burn online connection","C) A serendipitous errand that turned into everything","D) Introduced through mutual friends at a party"],correct:2,fb:{r:"A serendipitous errand that turned into everything — beautifully true. The universe is an incredible writer. ✨",w:"It was a serendipitous errand — he came for something small, and the universe gave us something enormous. 🌷"}},
+  {q:"Do you love what I created for you?",hint:"The simplest and most profound answer...",options:["A) Maybe","B) Mtchew I don know","C) Yes baby I love it baby","D) Ehn nau"],correct:2,fb:{r:"I love you more baby 🎂💕",w:"If I slap you now, you go know say you no love am 😂💕"}},
+];
+let cur2=0,score=0,answered=false;
+function buildProg(){
+  const p=document.getElementById('quizProgress');p.innerHTML='';
+  questions.forEach((_,i)=>{const d=document.createElement('div');d.className='qprog-dot'+(i<cur2?' done':'');p.appendChild(d);});
+}
+function renderQ(){
+  const q=questions[cur2];answered=false;
+  document.getElementById('quizContent').innerHTML=`
+    <p class="quiz-q">${q.q}</p>
+    <p class="quiz-hint">💭 ${q.hint}</p>
+    <div class="quiz-options">${q.options.map((o,i)=>`<button class="quiz-btn" onclick="ans(${i})">${o}</button>`).join('')}</div>
+    <div class="quiz-feedback" id="qFb"></div>
+    <button class="quiz-next" id="qNext" onclick="nextQ()">${cur2===questions.length-1?'See Results ✦':'Next →'}</button>`;
+  buildProg();
+}
+function ans(idx){
+  if(answered)return;answered=true;
+  const q=questions[cur2];
+  const btns=document.querySelectorAll('.quiz-btn');
+  const fb=document.getElementById('qFb');
+  const nxt=document.getElementById('qNext');
+  const ok=idx===q.correct;
+  btns[idx].classList.add(ok?'correct':'wrong');
+  btns[q.correct].classList.add('correct');
+  btns.forEach(b=>b.disabled=true);
+  if(ok){score++;fb.textContent='✓ '+q.fb.r;fb.className='quiz-feedback show correct';}
+  else{fb.textContent='✗ '+q.fb.w;fb.className='quiz-feedback show wrong';}
+  nxt.classList.add('show');
+}
+function nextQ(){cur2++;if(cur2>=questions.length)showResult();else renderQ();}
+function showResult(){
+  document.getElementById('quizContent').style.display='none';
+  document.getElementById('quizProgress').style.display='none';
+  const r=document.getElementById('quizResult');r.classList.add('show');
+  document.getElementById('resultScore').textContent=score+'/'+questions.length;
+  let h='',m='';
+  if(score===5){h='💙💙💙💙💙';m='Perfect score! You know our story by heart — and that makes my heart so full. Happy birthday, love. 🌸';launchFireworks();}
+  else if(score>=3){h='💙💙💙';m="You know the important things — what matters most is that you're here, celebrating today with me. Happy birthday! 🎂";}
+  else{h='💙';m="The score doesn't matter — the fact that you mean the world to me? That's what counts. Happy birthday, my love. 🌷";}
+  document.getElementById('resultHearts').textContent=h;
+  document.getElementById('resultMsg').textContent=m;
+}
+function restartQuiz(){cur2=0;score=0;document.getElementById('quizResult').classList.remove('show');document.getElementById('quizContent').style.display='';document.getElementById('quizProgress').style.display='';renderQ();}
+renderQ();
+
+// ── CELEBRATION ──────────────────────────────────────────
+function launchCelebration(){launchConfetti();launchFireworks();}
+function launchConfetti(){
+  const cols=['#60c4f8','#2e8ee0','#0af0d0','#c890ff','#f0c060','#eef7ff'];
+  for(let i=0;i<100;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');c.className='conf';
+      c.style.left=Math.random()*100+'vw';
+      c.style.background=cols[Math.floor(Math.random()*cols.length)];
+      const w=5+Math.random()*10,h=5+Math.random()*10;
+      c.style.width=w+'px';c.style.height=h+'px';
+      c.style.borderRadius=Math.random()>.5?'50%':'2px';
+      const dur=2+Math.random()*2;
+      c.style.animationDuration=dur+'s';
+      c.style.animationDelay=(Math.random()*.6)+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),(dur+1)*1000);
+    },i*25);
+  }
+}
+
+// ── FIREWORKS ─────────────────────────────────────────────
+const canvas=document.getElementById('fw-canvas');
+const ctx=canvas.getContext('2d');
+let particles=[];
+function rz(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+rz();window.addEventListener('resize',rz);
+function launchFireworks(){
+  for(let i=0;i<6;i++) setTimeout(()=>spawnFW(),i*350);
+}
+function spawnFW(){
+  const x=100+Math.random()*(canvas.width-200);
+  const y=80+Math.random()*(canvas.height*.45);
+  const cols=['#60c4f8','#0af0d0','#2e8ee0','#c890ff','#f0c060','#eef7ff'];
+  const col=cols[Math.floor(Math.random()*cols.length)];
+  for(let i=0;i<70;i++){
+    const a=(Math.PI*2*i)/70;
+    const sp=1.5+Math.random()*5;
+    particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,decay:.012+Math.random()*.015,size:1.5+Math.random()*2.5,color:col});
+  }
+  if(!animating) animate();
+}
+let animating=false;
+function animate(){
+  animating=true;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.06;p.life-=p.decay;
+    ctx.globalAlpha=p.life;ctx.fillStyle=p.color;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+  });
+  ctx.globalAlpha=1;
+  if(particles.length>0)requestAnimationFrame(animate);else animating=false;
+}
+</script>
+</body>
+</html>
